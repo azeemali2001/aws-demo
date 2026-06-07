@@ -1,4 +1,4 @@
-name: Test Pipeline
+name: Deploy to EC2
 
 on:
   push:
@@ -6,18 +6,19 @@ on:
       - main
 
 jobs:
-  test:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
 
-      - name: Install Dependencies
-        run: npm install
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          debug: true
 
-      - name: Start App Check
-        run: |
-          node -v
-          npm -v
-          echo "Pipeline Working 🚀"
+          script: |
+            whoami
+            pwd
