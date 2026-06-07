@@ -4,7 +4,7 @@ const app = express();
 
 app.get("/", (req, res) => {
   res.json({
-    message: "Hello from AWS EC2"
+    message: "This is updated and Auto deployment!!!"
   });
 });
 
